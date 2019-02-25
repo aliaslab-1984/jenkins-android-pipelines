@@ -10,22 +10,7 @@ def call(Map config) {
         throw new IllegalStateException('Missing configuration arguments')
     }
 
-    stage ('Checkout') {
-      checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: credentialsId, url: gitUri]]])
-    }
-
-    stage ('Analyze') {
-      sh "./gradlew :${moduleName}:lint"
-      androidLint()
-    }
-
-    stage ('Build') {
-      sh "./gradlew :${moduleName}:clean :${moduleName}:assemble"
-    }
-
-    stage ('Unit Test') {
-      sh "./gradlew :${moduleName}:jacocoTestReport"
-    }
+    androidSmokeTest(config)
 
     stage ('Instrumented Test') {
       def instrumentedTestCommand = "./gradlew :${moduleName}:createDebugCoverageReport"

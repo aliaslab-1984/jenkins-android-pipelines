@@ -10,7 +10,11 @@ def call(Map config) {
     }
 
     stage ('Checkout') {
-        git credentialsId: credentialsId, url: gitUri
+        checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: credentialsId, url: gitUri]]])
+    }
+
+    stage ('Clean') {
+        sh "./gradlew :${moduleName}:clean"
     }
 
   	stage ('Analyze') {
