@@ -4,13 +4,14 @@ def call(Map config) {
     def gitUri = config.gitUri
     def moduleName = config.moduleName
     def credentialsId = config.credentialsId
+    def gitBranch = config.gitBranch ?: 'master'
 
     if (gitUri == null || moduleName == null || credentialsId == null) {
         throw new IllegalStateException('Missing configuration arguments')
     }
 
     stage ('Checkout') {
-        checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: credentialsId, url: gitUri]]])
+        git credentialsId: credentialsId, url: gitUri, branch: gitBranch
     }
 
     stage ('Clean') {
