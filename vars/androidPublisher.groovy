@@ -1,4 +1,4 @@
-def androidPublisher(String projectName, Bool isUnitTestOnly) {
+def androidPublisher(String projectName, Boolean isUnitTestOnly) {
 
     def unitTestBaseDirectory = projectName + '/build/reports/tests/'
     def instrumentedBaseDirectory = projectName + '/build/reports/androidTests/connected'
