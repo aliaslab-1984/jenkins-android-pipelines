@@ -1,4 +1,4 @@
-def publishHTMLReport(String projectName, Bool isUnitTestOnly) {
+def androidPublisher(String projectName, Bool isUnitTestOnly) {
 
     def unitTestBaseDirectory = projectName + '/build/reports/tests/'
     def instrumentedBaseDirectory = projectName + '/build/reports/androidTests/connected',
@@ -17,5 +17,4 @@ def publishHTMLReport(String projectName, Bool isUnitTestOnly) {
       reportDir: instrumentedBaseDirectory,
       reportFiles: 'index.html', reportName: 'Instrumented Report', reportTitles: ''])
     }
-
 }
