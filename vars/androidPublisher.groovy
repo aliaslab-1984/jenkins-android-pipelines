@@ -1,4 +1,4 @@
-def publishHTML(String projectName, Bool isUnitTestOnly) {
+def publishHTMLReport(String projectName, Bool isUnitTestOnly) {
 
   pipeline {
 
