@@ -1,6 +1,6 @@
 def call(Map config) {
 
-  //pipeline {
+  pipeline {
     def gitUri = config.gitUri
     def moduleName = config.moduleName
     def credentialsId = config.credentialsId
@@ -30,5 +30,5 @@ def call(Map config) {
         sh "./gradlew :${moduleName}:sonarqube"
       }
     }
-  //}
+  }
 }
