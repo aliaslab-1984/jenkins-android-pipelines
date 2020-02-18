@@ -10,7 +10,7 @@ def androidPublisher(String projectName, Bool isUnitTestOnly) {
     publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: true,
     reportDir: releaseUnitTest,  reportFiles: 'index.html', reportName: 'Release Report', reportTitles: ''])
 
-    if !isUnitTestOnly {
+    if (!isUnitTestOnly) {
       publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: true,
       reportDir: instrumentedBaseDirectory, reportFiles: 'index.html', reportName: 'Instrumented Report', reportTitles: ''])
     }
