@@ -16,7 +16,7 @@ def call(Map config) {
       def instrumentedTestCommand = "./gradlew :${moduleName}:createDebugCoverageReport"
         if (useAvd) {
             withEnv(['JAVA_OPTS=-XX:+IgnoreUnrecognizedVMOptions --add-modules java.se.ee']) {
-                withAvd(hardwareProfile: 'pixel', systemImage: 'system-images;android-24;google_apis;arm64-v8a', abi: 'x86_64') {
+                withAvd(hardwareProfile: 'pixel', systemImage: 'system-images;android-24;default;x86_64', abi: 'x86_64') {
                     sh instrumentedTestCommand
                 }
             }
