@@ -19,10 +19,10 @@ def call(Map config) {
         sh "./gradlew :${moduleName}:clean"
     }
 
-  	//stage ('Analyze') {
-  	  //  sh "./gradlew :${moduleName}:lint"
-  	    //recordIssues tool: androidLintParser(pattern: lintReportPattern)
-  	//}
+  	stage ('Analyze') {
+  	    sh "./gradlew :${moduleName}:lint"
+  	    recordIssues tool: androidLintParser(pattern: lintReportPattern)
+  	}
 
   	stage ('Build') {
   	   sh "./gradlew :${moduleName}:clean :${moduleName}:assemble"
