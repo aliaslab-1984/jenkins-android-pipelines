@@ -11,10 +11,21 @@ def call(Map config) {
         throw new IllegalStateException('Missing configuration arguments')
     }
 
-    androidBuild(config)
+    stage ('Checkout') {
+        git credentialsId: credentialsId, url: gitUri, branch: gitBranch
+    }
 
-  	stage ('Unit Test') {
-  	    sh "./gradlew :${moduleName}:jacocoTestReport"
+    stage ('Clean') {
+        sh "./gradlew :${moduleName}:clean"
+    }
+
+  	//stage ('Analyze') {
+  	//    sh "./gradlew :${moduleName}:lint"
+  	//    recordIssues tool: androidLintParser(pattern: lintReportPattern)
+  	//}
+
+  	stage ('Build') {
+  	   sh "./gradlew :${moduleName}:clean :${moduleName}:assemble"
   	}
   }
 }

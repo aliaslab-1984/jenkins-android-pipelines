@@ -4,8 +4,7 @@ def call(Map config) {
     def gitUri = config.gitUri
     def moduleName = config.moduleName
     def credentialsId = config.credentialsId
-    def gitBranch = config.gitBranch ?: 'master'
-    def lintReportPattern = config.lintReportPattern ?: '**/lint-results.xml'
+    def useAvd = config.containsKey('useAvd') ? config.useAvd : true
 
     if (gitUri == null || moduleName == null || credentialsId == null) {
         throw new IllegalStateException('Missing configuration arguments')
@@ -13,8 +12,10 @@ def call(Map config) {
 
     androidBuild(config)
 
-  	stage ('Unit Test') {
-  	    sh "./gradlew :${moduleName}:jacocoTestReport"
-  	}
+    stage ('Sonar') {
+      withSonarQubeEnv {
+        sh "./gradlew :${moduleName}:sonarqube"
+      }
+    }
   }
 }
